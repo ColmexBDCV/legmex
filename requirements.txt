@@ -1,0 +1,8 @@
+django
+wheel
+mysql-connector-python
+mysqlclient
+django-widget-tweaks
+paramiko
+PyPDF2
+typing-extensions
