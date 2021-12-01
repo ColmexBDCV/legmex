@@ -1,0 +1,101 @@
+{% include "admin.html" %}
+{% load static %}
+
+{% block content %}
+    <div class='container'>
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger{% endif %}
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} alert-success{% endif %}">{{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+            <!--<img src="{% static 'media/img/logooficial.svg' %}"
+                class="logo-session" alt="">-->
+            <h2 class="title">Datos de Legislacion</h2>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label for='nombre' class="form-control-label">Titulo:</label>
+                    {{object.titulo}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Fecha:</label>
+                    {{object.fecha}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Volumen: </label>
+                    {{object.volumen}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Páginas:</label>
+                    {{object.pagina_inicio}} - {{object.pagina_final}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Transcripción:</label>
+                    {{object.transcripcion}}
+            </div>
+
+            <!--<div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{object.usuario.password.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{object.usuario.password}}
+                </div>
+            </div>-->
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Lugar:</label>
+                    {{object.lugar}}
+            </div>
+
+            <!--<div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">PDF:</label>
+                    {{object.pdf}}
+            </div>-->
+
+            <div class="row">
+                <div class="col-12">
+                    <label class="form-control-label">Datos de modificaciones</label>
+                </div>
+                <div class="col-12">
+                    <div class="w-100 mb-3 m-width">
+                        <label class="form-control-label">Creado por:</label>
+                            {{object.perfil}}
+                    </div>
+
+                    <div class="w-100 mb-3 m-width">
+                        <label class="form-control-label">Actualizado por:</label>
+                            {{object.modificado}}
+                    </div>
+
+                    <div class="w-100 mb-3 m-width">
+                        <label class="form-control-label">Última actualización:</label>
+                            {{object.modificado_fecha}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-left">
+                <a href='/legislationsupdate/{{object.idRegistro}}'><button type='button' class="my-4 btn btn-default">Editar</button></a>
+                <!--<a href='#'><button type='button' class="my-4 btn btn-secundary">Eliminar</button></a>-->
+            </div>
+    </div>
+{% endblock content %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('legislacion');
+    </script>
+{% endblock  %}

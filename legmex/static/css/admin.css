@@ -1,0 +1,40 @@
+body{
+    background: rgb(247, 248, 250);
+}
+
+.admin-head{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #7b213d;
+}
+
+.table .thead-colmex th{
+    background-color: #7b213d;
+    color: white;
+}
+
+.ui-datepicker-trigger{
+    width: 35px;
+    height: 35px;
+    margin-top: 6px;
+}
+
+.table-colmex th{
+    background-color: #7b213d;
+    color: white;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.table-colmex td{
+    font-size: 0.8125rem;
+    padding: 1rem;
+}
+
+.list-register{
+    height: 200px;
+    overflow-x: auto;
+}

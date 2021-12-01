@@ -1,0 +1,260 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Biblioteca Daniel Cosío Villegas | El Colegio de México.</title>
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--BoxIcons-->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Material Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--LocalMedia-->
+    <link rel="icon" href="{% static 'media/img/iconmini.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/argon-dashboard-react.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/public.css' %}" />
+    <!--JQueryCSS-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- JQueryJS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--PDFJS Viewer-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/build/pdf.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.6.347/web/pdf_viewer.js"></script>
+    <script type="text/javascript" src="https://cdnjs.com/libraries/Chart.js"></script>
+    <!--Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block custom_resources %}
+    
+    {% endblock  %}
+</head>
+
+<body>
+    <div id="root">
+        <div class="main-content">
+            <div class="lateral-nav white-bg" id="navbar">
+                <nav class="navbar__custom">
+                    <div>
+                        <div class="nav__brand m-b-1">
+                            <img src="{% static 'media/img/logooficial.svg' %}" class="wth-100"
+                                alt="...">
+                        </div>
+                        <div>
+                            <h4 class="t-center l-height">LEGISLACIÓN MEXICANA</h4>
+                            <h5 class="t-center l-height">o</h5>
+                            <h6 class="t-justify m-b-30 ">Colección completa de las disposiciones legislativas expedidas
+                                desde la independencia</h6>
+                        </div>
+                        <div class="nav__list">
+                            <a class="nav__link nav-link" id="home" href="/" aria-current="page">
+                                <i class="bx bx-home nav__icon"></i>
+                                <span class="nav__name">Inicio</span>
+                            </a>
+                            <a class="nav__link nav-link" id="slideshowPresentación" href="#">
+                                <i class="bx bx-slideshow nav__icon"></i>
+                                <span class="nav__name">Presentación</span>
+                            </a>
+                            <a class="nav__link nav-link" id="carouselGuía de uso" href="#">
+                                <i class="bx bx-carousel nav__icon"></i>
+                                <span class="nav__name">Guía de uso</span>
+                            </a>
+                            <a class="nav__link nav-link" id="volumen" href="/volumen">
+                                <i class="bx bx-library nav__icon"></i>
+                                <span class="nav__name">Volúmenes</span>
+                            </a>
+                            <a class="nav__link nav-link" id="tipo" href="/tipodocumentos">
+                                <i class="bx bx-blanket nav__icon"></i>
+                                <span class="nav__name">Tipos de documentos</span>
+                            </a>
+                            {% if request.user.is_authenticated %}
+                            <a class="nav__link nav-link" id="asuntos" href="/asuntos">
+                                <i class="bx bx-outline nav__icon"></i>
+                                <span class="nav__name">Colecciones</span>
+                            </a>
+                            {% endif %}
+                            <a class="nav__link nav-link" id="corpus" href="/corpus">
+                                <i class="bx bx-book-bookmark nav__icon"></i>
+                                <span class="nav__name">Descargar Corpus</span>
+                            </a>
+                            <a class="nav__link nav-link" id="book-readerPublicaciones" href="#">
+                                <i class="bx bx-book-reader nav__icon"></i>
+                                <span class="nav__name">Publicaciones</span>
+                            </a>
+                            <a class="nav__link nav-link" id="envelopeContacto" href="#">
+                                <i class="bx bx-envelope nav__icon"></i>
+                                <span class="nav__name">Contacto</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer-line footer-card"><a href="https://biblioteca.colmex.mx/" class="nav__footer">©
+                            2021 Biblioteca Daniel Cosío Villegas.</a><br><span class="span__footer">El Colegio de
+                            México A.C.</span><br><span class="span__footer">Carretera Picacho Ajusco No.
+                            20.</span><br><span class="span__footer">Ampliación Fuentes del Pedregal.</span><br><span
+                            class="span__footer">Delegación Tlalpan C.P. 14110</span><br><span
+                            class="span__footer">Ciudad de México, México.</span></div>
+                </nav>
+            </div>
+
+            <div id="backdrop"></div>
+            <div class="session justify-content-end row">
+                    {% if request.user.is_authenticated %}
+                        <div class="col-3">
+                            <i class="bx bxs-user-circle"></i>
+                            Usuario: {{request.user.username}}
+                            <a class="pl-2" href="{% url 'administrator' %}">Administración</a>
+                        </div>
+                        <div class="col-5 col-md-3 col-xl-2">
+                            <a class="btn btn-light-primary btn-sm nav-link" id="login12" href="{% url 'logout' %}">
+                                <i class="bx bx-log-out"></i>
+                                <span class="nav__name">Cerrar Sesión</span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="col-4 col-md-3 col-xl-2">
+                            <a class="btn btn-light-primary btn-sm btn-secondary" id="login12" href="{% url 'login' %}">
+                                <i class="bx bx-log-in"></i>
+                                <span class="nav__name">Iniciar Sesión</span>
+                            </a>
+                        </div>
+                        <div class="col-4 col-md-3 col-xl-2">
+                            <a class="btn btn-sm btn-outline-register" id="login12" href="{% url 'register' %}">
+                                <span class="nav__name">Registrarse</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            <div class="container">
+                {% block content %}
+                    <div class="justify-content-center row main-search">
+                        <div class="col-12 col-md-8 col-xl-8">
+                            <h4 class="text-index">{{disposiciones.count}} disposiciones numeradas, ordenadas cronológicamente, cuya
+                                cobertura va de 1687 a 1902. Dedica tres de sus volúmenes a Códigos, Ordenanzas y
+                                Reglamentos del Ejército y Armada de la República Mexicana.</h4>
+                            <form role="form" class="" action = '/search' method = 'GET'>
+                                <div class="form-group">
+                                    <div class="input-group-alternative mb-4 input-group" style="background: white;">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-search-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input placeholder="Search" autocomplete="off" name="query" type="text"
+                                            class="form-control-alternative form-control" value="" spellcheck="false"
+                                            data-ms-editor="true">
+                                        <button type="submit" class="btn btn-light-primary btn-sm btn-search btn btn-secondary">Buscar</button>
+                                    </div>
+                                </div>
+                                <input name="title2" id="titletmp" type="hidden" class="form-check-input" value="title2">
+                                <div id="boxSearch" class="border-0 card" style="height: auto; top: -12px; display:none; opacity:0;">
+                                    <div class="justify-content-left m-3 row">
+                                        <label>Limitar Búsqueda</label>
+                                        <div class="col-12 col-md-12 col-xl-12">
+                                            <div class="form-check form-check-inline col-2">
+                                                <label class="form-check-label">
+                                                    <input name="place" type="checkbox" class="form-check-input" value="place">
+                                                    Lugar
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-2">
+                                                <label class="form-check-label">
+                                                    <input name="text" type="checkbox" class="form-check-input" value="text">
+                                                    Texto
+                                                </label>
+                                            </div>
+                                            <!--<div class="form-check form-check-inline col-2">
+                                                <label class="form-check-label">
+                                                    <input name="affair" type="checkbox" class="form-check-input" value="affair">
+                                                    Asunto
+                                                </label>
+                                            </div>-->
+                                            <div class="form-check form-check-inline col-2">
+                                                <label class="form-check-label">
+                                                    <input name="title" type="checkbox" class="form-check-input" value="title">
+                                                    Título
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-4">
+                                                <label class="form-check-label">
+                                                    <input name="dispositionNumber" type="checkbox" class="form-check-input" value="dispositionNumber">
+                                                    No. de Disposición
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="justify-content-left m-3 row">
+                                        <label>Limitar Búsqueda por Tipo de Documento</label>
+                                        <div class="col-12 col-md-12 col-xl-12">
+                                            {% for tipo in tipoDoc %}
+                                            <div class="form-check form-check-inline col-3">
+                                                <label class="form-check-label">
+                                                    <input name="{{ tipo.tipo }}" type="checkbox" class="form-check-input" value="{{ tipo.tipo }}">
+                                                    {{ tipo.tipo }}
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <button onclick="showSearch()" type="button" class="btn btn-light-primary btn-sm btn btn-secondary btn-sclose" >Cerrar</button>
+                                </div>
+                                <div style="margin-top: -22px; text-align-last: center;" class="d-flex justify-content-center">
+                                    <button id="btnSearch" onclick="showSearch()" style="display:block; opacity:1;" type="button" class="btn btn-light-primary btn-sm btn btn-secondary">Búsqueda avanzada</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+     <script type='text/javascript'>
+
+        function activeTag(idTag){
+            tag = document.getElementById(idTag);
+            tag.classList.add('active');
+        }
+
+        function showSearch(){
+            toogleElement('btnSearch');
+            toogleElement('boxSearch');
+            element = document.getElementById('btnSearch');
+            titletmp = document.getElementById('titletmp');
+            if(element.style.display === 'none'){
+                titletmp.name = 'title3';
+            }else{
+                titletmp.name = 'title2';
+            }
+        }
+
+        function toogleElement(idElement){
+            var element = document.getElementById(idElement);
+            if(element.style.display === "none"){
+                element.style.display = "block";
+                setTimeout(function () {
+                  element.style.opacity = 1;
+                }, 20);
+
+            } else {
+                element.style.opacity = 0;
+                element.style.display = "none";
+            }
+            /*if (element.classList.contains('d-block')) {
+                //element.style.display = "block";
+                element.classList.add('d-none');
+                element.classList.remove('d-block');
+            } else {
+                element.classList.add('d-block');
+                element.classList.remove('d-none');
+            }*/
+        }
+    </script>
+    {% block custom_script %}
+        <script type='text/javascript'>
+        activeTag('home')
+    </script>
+    {% endblock  %}
+</body>
+
+</html>

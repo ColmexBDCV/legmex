@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="col-12 text-center head-list">
+        <h3>Tipos de Documentos</h3>
+    </div>
+     {% for tipo in object_list %}
+        <div class="card card-list">
+            <a href="/tipodocumento/{{tipo.tipo_documento__idTipoDoc}}">
+              <div class="card-body element-list">
+                {{tipo.tipo_documento__tipo}} ({{tipo.total}})
+              </div>
+            </a>
+        </div>
+    {% endfor %}
+    <!--{% for tipo in object_list %}
+        <div>
+            <a href="/tipodocumento/{{tipo.tipo_documento__idTipoDoc}}">{{tipo.tipo_documento__tipo}} ({{tipo.total}})
+        </div>
+    {% endfor %}-->
+{% endblock content %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('tipo')
+    </script>
+    {% endblock  %}

@@ -1,0 +1,16 @@
+{% extends 'admin.html'%}
+
+{% block content %}
+    <div class="float-left col-6">
+        <div id="piechart" style="width: 600px; height: 500px;"></div>
+    </div>
+    <div class="float-left col-6">
+        <div id="volchart" style="width: 600px; height: 500px;"></div>
+    </div>
+{% endblock %}
+
+{% block custom_script %}
+     <script type='text/javascript'>
+        activeTag('home')
+    </script>
+{% endblock %}

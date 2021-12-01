@@ -1,0 +1,89 @@
+{% load static%}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title></title>
+        <link href="../static/media/img/iconmini.svg"/>
+        <link rel="stylesheet" href="{% static 'css/argon-dashboard-react.css' %}"/> 
+        <link rel="stylesheet" href="{% static 'css/auth.css' %}"/>
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'css/vendor/nucleo/css/nucleo.css' %}"> 
+    </head>
+
+    <body id="body-pd" cz-shortcut-listen="true" style="padding: 0px;">
+        <div id="root">
+            <div class="container-login">
+                <div class="forms-container">
+                    <div class="signin-forget-password">
+                        <form role="form" class="form-auth sign-in-form" action="{% url 'login'%}" method="post">
+                            <input type="hidden" name="next" value="{{ request.GET.next }}">
+                            {% csrf_token %}
+                            <img src="{% static 'media/img/logooficial.svg' %}"
+                                class="logo-session" alt="">
+                            <h2 class="title">{{title}}</h2>
+                            <div class="w-100 mb-3 m-width form-group">
+                                <label class="form-control-label">Usuario</label>
+                                <div class="input-group-alternative input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="ni ni-email-83"></i>
+                                        </span>
+                                    </div>
+                                    {{form.username|add_class:'form-control'}}
+                                    <!--<input placeholder="Ingrese el email" type="email" class="form-control">-->
+                                </div>
+                            </div>
+                            <div class="w-100 mb-3 m-width form-group">
+                                <label class="form-control-label">Contraseña</label>
+                                <a class="text-jam" id="forget-mode" style="cursor: pointer; font-size: 18px; float: right;" onclick="forgetMode()">
+                                    <small>Se te olvidó tu contraseña</small>
+                                </a>
+                                <div class="input-group-alternative input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    {{form.password|add_class:'form-control'}}
+                                    <!--<input placeholder="Ingrese la contraseña" type="password" class="form-control">-->
+                                </div>
+                            </div>
+                            <div class="text-center"><button type="submit" class="my-4 btn btn-default">Ingresar</button>
+                            </div>
+                        </form>
+                        <form role="form" class="form-auth forget-password-form">
+                            <h2 class="title">Contraseña olvidada ?</h2>
+                            <p class="text-muted font-weight-bold font-size-h4">Ingrese su correo electrónico para
+                                restablecer su contraseña</p>
+                            <div class="w-100 mb-3 m-width form-group"><label class="form-control-label">Email</label>
+                                <div class="input-group-alternative input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i
+                                                class="ni ni-email-83"></i></span></div><input
+                                        placeholder="Ingrese el email" type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="text-center"><button type="button"
+                                    class="my-4 btn btn-default">Enviar</button>
+                                    <button type="button" class="my-4 btn btn-secundary" onclick="forgetMode()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panels-container">
+                    <div class="panel left-panel"><img src="{% static 'media/img/image-session.svg' %}" class="image" alt="">
+                    </div>
+                    <div class="panel right-panel"><img src="{% static 'media/img/image-forget-password.svg' %}" class="image" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function forgetMode() {
+                container = document.getElementsByClassName("container-login");
+                container[0].classList.toggle("forget-mode");
+            }
+        </script>
+    </body>
+
+</html>

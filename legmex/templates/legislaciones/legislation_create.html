@@ -1,0 +1,187 @@
+{% extends "admin.html" %}
+{% load widget_tweaks%}
+{% load static %}
+
+{% block custom_resources %}
+
+{% endblock  %}
+
+{% block content %}
+    <div class='container'>
+        <form id="registroform" class="" role="form" method='POST'  enctype='multipart/form-data'>
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger{% endif %}
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} alert-success{% endif %}">{{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+            <!--<img src="{% static 'media/img/logooficial.svg' %}"
+                class="logo-session" alt="">-->
+            <div class="col-12 text-center admin-head">
+                <h2 class="title">{{ title }}</h2>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label for='nombre' class="form-control-label">{{ form.titulo.label_tag }}</label>
+                {{ form.titulo }}
+            </div>
+
+
+            <div class="w-100 mb-3 m-width form-group">
+                <div class="col-12">
+                    <label class="form-control-label">{{form.fecha.label_tag}}</label>
+                </div>
+                {{form.fecha}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{form.volumen.label_tag}}</label>
+                {{form.volumen}}
+            </div>
+
+            <div class="form-row">
+                <div class="w-100 mb-3 m-width form-group col-6">
+                    <label class="form-control-label">{{form.pagina_inicio.label_tag}}</label>
+                    {{form.pagina_inicio}}
+                    <div class="invalid-feedback ">
+                        La pagina de inicio no debe ser mayor a la pagina final.
+                    </div>
+                </div>
+
+                <div class="w-100 mb-3 m-width form-group col-6">
+                    <label class="form-control-label">{{form.pagina_final.label_tag}}</label>
+                    {{form.pagina_final}}
+                    <div class="invalid-feedback ">
+                        La pagina final no debe ser mayor al total de paginas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group ">
+                    <label class="form-control-label">{{form.tipo_documento.label_tag}}</label>
+                    {{form.tipo_documento|attr:'class:form-control'}}
+                </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{form.transcripcion.label_tag}}</label>
+                {{form.transcripcion}}
+            </div>
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{form.relacionado.label_tag}}</label>
+                {{form.relacionado}}
+                <p class="text-legend">(Agregar url´s separadas por ";")</p>
+            </div>
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{form.lugar.label_tag}}</label>
+                {{form.lugar}}
+            </div>
+
+            <!--<div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{form.pdf.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{form.pdf|attr:'class:form-control'}}
+                </div>
+            </div>-->
+
+            <div class="text-center">
+                <button type="submit" id="btnguardar" class="my-4 btn btn-default">Guardar</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock  %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+    
+        $(document).ready(function() {
+            $('[data-role="tags-input"]').tagsInput();
+        });
+
+        activeTag('legislacion');
+
+        $( function() {
+            $( ".datepicker" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange:  '1200:' + new Date(),
+                showOn: "button",
+                buttonImage: "{% static 'media/img/calendar_48.png' %}",
+                buttonImageOnly: true,
+                buttonText: "Slecciona la fecha"
+            });
+            $( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd');
+        } );
+
+        $("#id_pagina_final").focusout(function (e) {
+            e.preventDefault();
+            verify_pags(this);
+        });
+
+        $("#btnguardar").click(function( e ) {
+            e.preventDefault();
+            var get_validation = "xxx";
+            element = document.getElementById('id_pagina_final');
+            get_validation = verify_pags(element)
+            if(get_validation == true){
+                $('#registroform').submit();
+            }else{
+                return false;
+            }
+        });
+
+        function verify_pags(args_element, args_type){
+            var volumen = $("#id_volumen");
+            var element = args_element
+            var send = false;
+            if(volumen.val() != "" && element.value != ""){
+                // GET AJAX request
+                var total = get_total_pags(volumen);
+                if(total < element.value){
+                    element.classList.add('is-invalid');
+                    send = false;
+                }else{
+                    if($('#id_pagina_final').val() < $('#id_pagina_inicio').val()){
+                         $('#id_pagina_inicio').addClass('is-invalid');
+                        send = false;
+                    }else{
+                        element.classList.remove('is-invalid');
+                        send = true;
+                    }
+                }
+            }
+            return send;
+        }
+
+        function get_total_pags(volumen){
+            var total = 0;
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: "{% url 'validatepags' %}",
+                data: {"volumen" : volumen.val()},
+                success: function (response) {
+                    // if not valid user, alert the user
+                    total = response["total"];
+                },
+                error: function (response) {
+                    //console.log(response)
+                }
+            });
+            return total;
+        }
+
+
+
+    </script>
+{% endblock  %}

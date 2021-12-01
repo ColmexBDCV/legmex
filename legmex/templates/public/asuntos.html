@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="col-12 text-center head-list">
+        <h3>Colecciones</h3>
+    </div>
+     {% for asunto in object_list %}
+        <div class="card card-list">
+            <a href="/asunto/{{asunto.idcoleccion}}">
+              <div class="card-body element-list">
+                {{asunto.nombre}}
+                  <span class="float-right">Autor: {{asunto.persona}}</span>
+                  <p></p>
+                  <p class="col-12 descripcion">{{asunto.descripcion}}</p>
+              </div>
+            </a>
+        </div>
+    {% endfor %}
+    <!--{% for asunto in object_list %}
+        <div>
+            <a href="/asunto/{{asunto.asunto__idAsunto}}">{{asunto.asunto__asunto}} ({{asunto.total}})
+        </div>
+    {% endfor %}-->
+{% endblock content %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('asuntos')
+    </script>
+{% endblock  %}

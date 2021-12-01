@@ -1,0 +1,71 @@
+{% extends "admin.html" %}
+
+{% block content %}
+        <div class="col-12 text-center admin-head">
+            <h3>Colecciones</h3>
+        </div>
+        <div>
+            <a href='/colectionscreate' class="btn btn-light-primary"><span class="material-icons md-18">add_circle</span> Crear Colección </a>
+        </div>
+        <div class="col-12 pt-10">
+            &nbsp;&nbsp;&nbsp;
+            {% include 'utils/messages.html' %}
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead class="thead-colmex">
+                    <tr class="text-center">
+                        <th scope="col">
+                            Nombre
+                        </th>
+                        <th scope="col">
+                            Autor
+                        </th>
+                        <th scope="col">
+                            Legislaciones Relacionadas
+                        </th>
+                        <th scope="col">
+                            Fecha de creación
+                        </th>
+                        <th scope="col">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for coleccion in object_list %}
+                        <tr class="text-center">
+                            <td>
+                                {{coleccion.nombre}}
+                            </td>
+                            <td>
+                                {{coleccion.persona}}
+                            </td>
+                            <td>
+                                {{coleccion.registro}}
+                            </td>
+                            <td>
+                                {{coleccion.fecha_creacion}}
+                            </td>
+                            <td>
+                                <a href="/colectionsupdate/{{coleccion.idcoleccion}}" title="Editar">
+                                    <span class="material-icons md-18">edit_note</span> Editar
+                                </a>&nbsp;&nbsp;
+                                <a href="{% url 'collectiondelete' coleccion.idcoleccion%}" title="Eliminar" class="delete-link" data-toggle="modal" data-target="#deleteModal">
+                                    <span class="material-icons md-18">delete</span> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'utils/delete_modal.html'%}
+{% endblock %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('coleccion');
+    </script>
+{% endblock  %}
+

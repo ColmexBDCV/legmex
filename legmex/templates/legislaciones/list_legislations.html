@@ -1,0 +1,102 @@
+{% extends "admin.html" %}
+
+{% block content %}
+        <div class="col-12 text-center admin-head">
+            <h3>Disposiciones</h3>
+        </div>
+        <div>
+            <a href='/legislationscreate' class="btn btn-light-primary"><span class="material-icons md-18">add_circle</span> Agregar Disposición</a>
+        </div>
+        <div class="col-12 pt-10">
+            &nbsp;&nbsp;&nbsp;
+            {% include 'utils/messages.html' %}
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-colmex">
+                    <tr class="text-center">
+                        <th scope="col">
+                            Titulo
+                        </th>
+                        <th scope="col">
+                            Fecha
+                        </th>
+                        <th scope="col">
+                            Volumen
+                        </th>
+                        <th scope="col">
+                            Paginas
+                        </th>
+                        <!--<th scope="col">
+                            Transcripción
+                        </th>-->
+                        <th scope="col">
+                            Lugar
+                        </th>
+                        <!--<th scope="col">
+                            PDF
+                        </th>-->
+                        <th scope="col">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for legislacion in object_list %}
+                        <tr>
+                            <td class="text-center" style="width: 300px; white-space: pre-wrap; display:table; word-wrap: break-word;">
+                                {{legislacion.titulo}}
+                            </td>
+                            <td class="align-middle">
+                                {{legislacion.fecha}}
+                            </td>
+                            <td class="text-center align-middle">
+                                {{legislacion.volumen}}
+                            </td>
+                            <td class="text-center align-middle">
+                                {{legislacion.pagina_inicio}} - {{legislacion.pagina_final}}
+                            </td>
+                            <!--<td class="text-truncate" style="max-width: 50px;">
+                                {{legislacion.transcripcion}}
+                            </td>-->
+                            <td class="align-middle">
+                                {{legislacion.lugar}}
+                            </td>
+                            <!--<td class="text-truncate" style="max-width: 50px;" title="{{legislacion.pdf}}">
+                                {{legislacion.pdf}}
+                            </td>-->
+                            <td class="align-middle">
+                                <a href="/legislationsupdate/{{legislacion.idRegistro}}" title="Editar">
+                                    <span class="material-icons md-18">edit_note</span> Editar
+                                </a>&nbsp;&nbsp;
+                                <a href="{% url 'registrodelete' legislacion.idRegistro%}" title="Eliminar" class="delete-link" data-toggle="modal" data-target="#deleteModal">
+                                    <span class="material-icons md-18">delete</span> Eliminar
+                                </a>&nbsp;&nbsp;
+                                {% if user.groups.all.0.name == 'admin' %}
+                                <a href="{% url 'legislaciondetail' legislacion.idRegistro%}" title="Detalle">
+                                    <span class="material-icons md-18">add_circle</span> Detalle
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'utils/delete_modal.html'%}
+        <!--<div>
+            <h2>Legislaciones</h2>
+            <a href='/legislationscreate' class="btn btn-light-primary btn-sm btn-search btn btn-secondary">+ Registro</a>
+        </div>
+        {% for object in object_list %}
+            <div>
+                <a href='/legislationdetail/{{object.idLegislacion}}' >{{object.titulo}}&nbsp;({{object.fecha}},&nbsp;{{object.pdf.nombre}})</a>
+            </div>
+        {% endfor %}-->
+{% endblock %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('legislacion');
+    </script>
+{% endblock  %}

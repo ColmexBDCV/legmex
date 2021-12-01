@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load filter %}
+{% block custom_resources %}
+
+{% endblock %}
+{% block content %}
+    <form role="form" class="" action = '/search' method = 'GET'>
+        <div class="form-group">
+            <div class="input-group-alternative mb-4 input-group" style="background: white;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="bx bx-search-alt"></i>
+                    </span>
+                </div>
+                <input type="hidden" name="title2" value="title2">
+                <input placeholder="Search" autocomplete="off" name="query" type="text"
+                    class="form-control-alternative form-control" value="" spellcheck="false"
+                    data-ms-editor="true">
+                <button type="submit" class="btn btn-light-primary btn-sm btn-search btn btn-secondary">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div>
+        <h3>Se encontraron {{object_list.count}} resultados de la busqueda {{tipo}} "{{query}}"</h3>
+    </div>
+    {% for object in object_list %}
+        <div id="results" class="mt-5">
+            <div class="row">
+                <a class="col-10" href='/legislacion/{{object.idRegistro}}' ><p> {{object.titulo}} </p></a>
+            </div>
+            <div class="row metadata">
+                <div class="col-2 metadata-col">
+                    <p class="label">Disposición No:</p>&nbsp;{{object.idRegistro}}
+                </div>
+                <div class="col-4 metadata-col">
+                    <p class="label">Tipo de Disposición:</p>&nbsp;{{object.tipo_documento}}
+                </div>                
+            </div>
+            <div class="row metadata">
+                <div class="col-2 metadata-col">
+                    <p class="label">Lugar:</p>&nbsp;{{object.lugar}}
+                </div>
+                <div class="col-3 metadata-col">
+                    <p class="label">Fecha:</p>&nbsp;{{object.fecha}}
+                </div>
+                <div class="col-2 metadata-col">
+                    <p class="label">Vol.:</p>&nbsp;{{object.volumen}}
+                </div>
+                <div class="col-2 metadata-col">
+                    <p class="label">Paginas:</p>&nbsp;{{object.pagina_inicio}} - {{object.pagina_final}}
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-10 text-justify">
+                    {{object.transcripcion|slice:"0:500"}}...
+                </div>            
+            </div>
+            {% with object.relacionado|split:";" as urls %}
+            <div class="row mt-3 metadata">
+                <div class="col-10 metadata-col">
+                    <p class="label">Relacionado con:</p>&nbsp;
+                    {% for url in urls %}
+                        {% if url != "" %}
+                            <a href="{{url}}">{{url}}</a>&nbsp;|&nbsp;
+                        {% endif %}
+                    {% endfor %}
+                </div>            
+            </div>
+            {% endwith %}
+
+        </div>
+    {% endfor %}
+{% endblock  %}
+
+<!--{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('pdfs');
+    </script>
+{% endblock  %}-->

@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Biblioteca Daniel Cosío Villegas | El Colegio de México.</title>
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- BoxIcons-->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Material Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--LocalMedia--> 
+    <link rel="icon" href="{% static 'media/img/iconmini.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/argon-dashboard-react.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/admin.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/jquery-tagsinput.min.css'%}" />
+    <!--JQueryCSS-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     <!--Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-multiselect.css' %}" />
+    <!-- JQueryJS-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!-- JQuery UI -->
+    <script src="https://code.jquery.com/ui/1.13.0-rc.3/jquery-ui.min.js" integrity="sha256-R6eRO29lbCyPGfninb/kjIXeRjMOqY3VWPVk6gMhREk=" crossorigin="anonymous"></script>
+    <!-- Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Bootstrap Tags -->
+    <script type="text/javascript" src="{% static 'js/jquery-tagsinput.min.js' %}" ></script>
+    {% block custom_resources %}
+    
+    {% endblock  %}
+</head>
+
+<body>
+    <div id="root">
+        <div class="main-content">
+            <div class="lateral-nav white-bg" id="navbar">
+                <nav class="navbar__custom">
+                    <div>
+                        <div class="nav__brand m-b-1"><img src="{% static 'media/img/logooficial.svg' %}" class="wth-100"
+                                alt="..."></div>
+                        <div>
+                            <h4 class="t-center l-height">LEGISLACIÓN MEXICANA</h4>
+                            <h5 class="t-center l-height">- o -</h5>
+                            <h6 class="t-justify m-b-30 ">Colección completa de las disposiciones legislativas expedidas
+                                desde la independencia</h6>
+                        </div>
+                        <div class="nav__list">
+                            <a class="nav__link nav-link" id="home" href="/administrator" aria-current="page">
+                                <i class="bx bx-home nav__icon"></i>
+                                <span class="nav__name">General</span>
+                            </a>
+                            <a class="nav__link nav-link" id="coleccion" href="/colections">
+                                <i class="bx bx-carousel nav__icon"></i>
+                                <span class="nav__name">Colecciones</span>
+                            </a>
+                            {% if user.groups.all.0.name == 'admin' or user.groups.all.0.name == 'editor'%}
+                            <a class="nav__link nav-link" id="legislacion" href="/legislations">
+                                <i class="bx bx-library nav__icon"></i>
+                                <span class="nav__name">Disposiciones</span>
+                            </a>
+                            <a class="nav__link nav-link" id="volumen" href="{% url 'volumenlist' %}">
+                                <i class="bx bx-blanket nav__icon"></i>
+                                <span class="nav__name">Volumen</span>
+                            </a>
+                            {% ifequal user.groups.all.0.name 'admin'%}
+                            <a class="nav__link nav-link" id="users" href="/users">
+                                <i class="bx bx-slideshow nav__icon"></i>
+                                <span class="nav__name">Usuarios</span>
+                            </a>
+                            {% endifequal %}
+                            {% endif %}
+                            <!--<a class="nav__link nav-link" id="outlineAsuntos" href="/public/asuntos">
+                                <i class="bx bx-outline nav__icon"></i>
+                                <span class="nav__name">Asuntos</span>
+                            </a>
+                            <a class="nav__link nav-link" id="book-bookmarkDescargar Corpus" href="/public/corpus">
+                                <i class="bx bx-book-bookmark nav__icon"></i>
+                                <span class="nav__name">Descargar Corpus</span>
+                            </a>
+                            <a class="nav__link nav-link" id="book-readerPublicaciones" href="/public/publicaciones">
+                                <i class="bx bx-book-reader nav__icon"></i>
+                                <span class="nav__name">Publicaciones</span>
+                            </a>
+                            <a class="nav__link nav-link" id="envelopeContacto" href="/public/contacto">
+                                <i class="bx bx-envelope nav__icon"></i>
+                                <span class="nav__name">Contacto</span>
+                            </a>-->
+                        </div>
+                    </div>
+                    <div class="footer-line footer-card"><a href="https://biblioteca.colmex.mx/" class="nav__footer">©
+                            2021 Biblioteca Daniel Cosío Villegas.</a><br><span class="span__footer">El Colegio de
+                            México A.C.</span><br><span class="span__footer">Carretera Picacho Ajusco No.
+                            20.</span><br><span class="span__footer">Ampliación Fuentes del Pedregal.</span><br><span
+                            class="span__footer">Delegación Tlalpan C.P. 14110</span><br><span
+                            class="span__footer">Ciudad de México, México.</span></div>
+                </nav>
+            </div>
+            <div id="backdrop"></div>
+            <div class="container">
+                <div class="session justify-content-end row">
+                    <div class="col-4">
+                        <i class="bx bxs-user-circle"></i>
+                        Usuario: {{request.user.username}}
+                         <a class="pl-2" href="{% url 'base' %}">Vista Pública</a>
+                    </div>
+                    <div class="col-5 col-md-3 col-xl-2">
+                        <a class="btn btn-light-primary btn-sm nav-link" id="login12" href="{% url 'logout' %}">
+                            <i class="bx bx-log-out"></i>
+                            <span class="nav__name">Cerrar Sesión</span>
+                        </a>
+                    </div>
+                </div>
+                    {% block content %}
+
+                    {% endblock %}
+                    <!--<h4 class="text-index">16,890 disposiciones numeradas, ordenadas cronológicamente, cuya
+                        cobertura va de 1687 a 1902. Dedica tres de sus volúmenes a Códigos, Ordenanzas y
+                        Reglamentos del Ejército y Armada de la República Mexicana.</h4>
+                    <form role="form" class="">
+                        <div class="form-group">
+                            <div class="input-group-alternative mb-4 input-group" style="background: white;">
+                                <div class="input-group-prepend"><span class="input-group-text"><i
+                                            class="bx bx-search-alt"></i></span></div><input placeholder="Search"
+                                    autocomplete="off" name="globalText" type="text"
+                                    class="form-control-alternative form-control" value="" spellcheck="false"
+                                    data-ms-editor="true"><button type="submit"
+                                    class="btn btn-light-primary btn-sm btn-search btn btn-secondary">Buscar</button>
+                            </div>
+                        </div>
+                        <div style="margin-top: -22px; text-align-last: center;"><button type="button"
+                                class="btn btn-light-primary btn-sm btn btn-secondary">Búsqueda avanzada</button>
+                        </div>
+                    </form>-->
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        function activeTag(idTag){
+            tag = document.getElementById(idTag);
+            tag.classList.add('active');
+        }
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChartDocs);
+        google.charts.setOnLoadCallback(drawChartVolumen);
+
+        function drawChartDocs() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Tipo de docuemnto','Total'],
+              {% for doc in docs %}
+                ['{{doc.tipo_documento__tipo}}', {{doc.total}}],
+              {% endfor %}
+            ]);
+
+            var options = {
+              title: 'Tipos de Documentos',
+              is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChartVolumen() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Tipo de docuemnto','Total'],
+              {% for vol in volumenes %}
+                ['Volumen {{vol.volumen}}', {{vol.total}}],
+              {% endfor %}
+            ]);
+
+            var options = {
+              title: 'Volumenes',
+              is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('volchart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    {% block custom_script %}
+
+    {% endblock  %}
+</body>
+
+</html>

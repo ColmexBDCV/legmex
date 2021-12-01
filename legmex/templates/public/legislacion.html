@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block custom_resources %}
+  
+{% endblock custom_resources %}
+
+{% block content %}
+    <!--<div class="row">
+        <div class="col-6">
+            <iframe onload="openPDF('/media/{{object.pdf}}')" class="embed-responsive-item" id="pdf_iframe" src="{% static 'web/viewer.html' %}" width="100%" height="550px"></iframe>
+        </div>
+        <div class="col-6">
+            <div width="100%">
+                {{object.transcripcion}}
+            </div>
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col title-leg text-center">
+            <p> {{object.titulo}} </p>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-4 show-version d-none">
+            <button class="btn btn-light-primary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <span class="material-icons md-24">picture_as_pdf</span>
+                Version PDF
+            </button>
+        </div>
+        <div class="col-4 show-version d-block">
+            <button class="btn btn-light-primary collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <span class="material-icons md-24">description</span>
+                Transcipción del texto
+            </button>
+        </div>
+        <div class="col-4">
+            <a class="btn btn-link float-right" id="add-collection" data-toggle="modal" data-target="#deleteModal">
+                <span class="material-icons md-24">add_circle</span>
+                Agregar a colección
+            </a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div id="accordion" class="col-8">
+            <div class="card">
+                <!--<div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+
+                </h5>
+                </div>-->
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body pdf-view">
+                    <iframe onload="openPDF('/media/pdf_tmp/{{pdf}}')" class="embed-responsive-item" id="pdf_iframe" src="{% static 'web/viewer.html'%}#zoom=auto" width="100%" height="550px"></iframe>
+                </div>
+                </div>
+            </div>
+            <div class="card">
+                <!--<div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+
+                </h5>
+                </div>-->
+                <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    {{object.transcripcion}}
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="datos" class="col-4">
+            <div class="row metadata">
+                <div class="col metadata-col">
+                    <h4>Disposición No:</h4>
+                </div>
+            </div>
+             <div class="row metadata border-bottom">
+                <div class="col mb-1">
+                    {{object.idRegistro}}
+                </div>
+            </div>
+            <div class="row metadata">
+                <div class="col metadata-col">
+                    <h4>Tipo de Disposición:</h4>
+                </div>                
+            </div>
+            <div class="row metadata border-bottom">
+                <div class="col mb-1">
+                    <a href="{% url 'tipodocId' object.tipo_documento.idTipoDoc %}"> {{object.tipo_documento}}</a>
+                </div>                
+            </div>
+            <div class="row metadata">
+                <div class="col metadata-col">
+                    <h4>Lugar:</h4>
+                </div>
+            </div>
+            <div class="row metadata border-bottom">
+                <div class="col mb-1">
+                    <a href="{% url 'search' %}?query={{object.lugar}}&title3=title2&place=place">{{object.lugar}}</a>
+                </div>
+            </div>
+            <div class="row metadata">
+                <div class="col metadata-col">
+                   <h4>Fecha:</h4>
+                </div>
+            </div>
+             <div class="row metadata border-bottom">
+                <div class="col mb-1">
+                   {{object.fecha}}
+                </div>
+            </div>
+            <div class="row metadata">
+                <div class="col metadata-col">
+                    <h4>Vol.:</h4>
+                </div>
+            </div>
+            <div class="row metadata border-bottom">
+                <div class="col mb-1">
+                    <a href="{% url 'volumenes' object.volumen.idVolumen %}">{{object.volumen}}</a>
+                </div>
+            </div>
+            <div class="row metadata">
+                <div class="col metadata-col">
+                    <h4>Paginas:</h4>
+                </div>
+            </div>
+             <div class="row metadata border-bottom">
+                <div class="col mb-1">
+                    {{object.pagina_inicio}} - {{object.pagina_final}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        {% include "utils/collection_modal.html" with object_list=collections legislacion=object.idRegistro%}
+    </div>
+{% endblock content %}
+
+{% block custom_script %}
+<script>
+    function openPDF(url){
+        document.getElementById('pdf_iframe').contentWindow.PDFViewerApplication.open(url);
+    }
+
+    $(".show-version").click(function(){
+        $(".show-version").toggleClass('d-block');
+        $(".show-version").toggleClass('d-none');
+    });
+</script>
+{% endblock custom_script %}

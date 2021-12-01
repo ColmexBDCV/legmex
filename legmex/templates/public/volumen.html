@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="col-12 text-center head-list">
+        <h3>Volúmenes</h3>
+    </div>
+     {% for volumen in object_list %}
+        <div class="card card-list">
+            <a href="/volumenes/{{volumen.volumen__idVolumen}}">
+              <div class="card-body element-list">
+                Volumen&nbsp;{{volumen.volumen__volumen}} ({{volumen.total}})
+                  <p class="descripcion"> Descripción: {{volumen.volumen__descripcion}}</p>
+              </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock content %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('volumen')
+    </script>
+{% endblock custom_script %}

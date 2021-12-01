@@ -1,0 +1,97 @@
+{% extends "admin.html" %}
+{% load widget_tweaks %}
+{%load static%}
+{% block content %}
+    <div class='container'>
+        <form role="form" method='POST' class="form-auth sign-in-form" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger{% endif %}
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} alert-success{% endif %}">{{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+            <!--<img src="{% static 'media/img/logooficial.svg' %}"
+                class="logo-session" alt="">-->
+            <div class="col-12 text-center admin-head">
+                <h2 class="title">Actualizar los datos del usuario</h2>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+            <label for='nombre' class="form-control-label">{{ perfil.nombre.label_tag }}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-email-83"></i>
+                        </span>
+                    </div>
+                    {{perfil.nombre}}
+                </div>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{perfil.ape_paterno.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{perfil.ape_paterno}}
+                </div>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{perfil.ape_materno.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{perfil.ape_materno}}
+                </div>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{usuario.email.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{usuario.email}}
+                </div>
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{usuario.username.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{usuario.username}}
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="my-4 btn btn-default">Guardar</button>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock content %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('users');
+    </script>
+{% endblock  %}

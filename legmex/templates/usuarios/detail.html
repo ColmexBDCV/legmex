@@ -1,0 +1,76 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block custom_resources %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock custom_resources %}
+{% block content %}
+    <div class='container'>
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger{% endif %}
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} alert-success{% endif %}">{{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+            <!--<img src="{% static 'media/img/logooficial.svg' %}"
+                class="logo-session" alt="">-->
+            <h2 class="title">Datos de Usuario</h2>
+
+            <div class="w-100 mb-3 m-width form-group">
+            <label for='nombre' class="form-control-label">Nombre:</label>
+                    {{object.nombre}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Apellido Paterno:</label>
+                    {{object.ape_paterno}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Apellido Materno: </label>
+                    {{object.ape_materno}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Email:</label>
+                    {{object.email}}
+            </div>
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Usuario:</label>
+                    {{object.usuario.usuario}}
+            </div>
+
+            <!--<div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">{{object.usuario.password.label_tag}}</label>
+                <div class="input-group-alternative input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    {{object.usuario.password}}
+                </div>
+            </div>-->
+
+            <div class="w-100 mb-3 m-width form-group">
+                <label class="form-control-label">Tipo de usuario:</label>
+                    {{object.usuario.type}}
+            </div>
+
+            <div class="text-left">
+                <a href='#'><button type='button' class="my-4 btn btn-default">Editar</button></a>
+                <a href='#'><button type='button' class="my-4 btn btn-secundary">Eliminar</button></a>
+            </div>
+    </div>
+{% endblock content %} 
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('users');
+    </script>
+{% endblock  %}

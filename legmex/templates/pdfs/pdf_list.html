@@ -1,0 +1,19 @@
+{% extends "admin.html" %}
+
+{% block content %}
+        <div>
+            <h2>Archivos PDF</h2>
+            <a href='/pdfcreate/' class="btn btn-light-primary btn-sm btn-search btn btn-secondary">+ PDF</a>
+        </div>
+        {% for object in object_list %}
+            <div>
+                <a href='/pdfupdate/{{object.idPdf}}' >{{object.nombre}}&nbsp;({{object.ruta}})</a>
+            </div>
+        {% endfor %}
+{% endblock %}
+
+{% block custom_script %}
+    <script type='text/javascript'>
+        activeTag('pdfs');
+    </script>
+{% endblock  %}
